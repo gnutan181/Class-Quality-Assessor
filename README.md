@@ -8,7 +8,8 @@ Upload a recording of an online children's class (or paste a link) and get a rat
 part of the judgement and concrete coaching points.
 
 Built for the Humaniti AI 24-hour build challenge. See [APPROACH.md](APPROACH.md) for
-the reasoning behind the design and [AI_USAGE.md](AI_USAGE.md) for how AI was used.
+the reasoning behind the design and [AI_USAGE.md](AI_USAGE.md) for how AI was used, and
+[docs/AI_INTERACTION_HISTORY.pdf](docs/AI_INTERACTION_HISTORY.pdf) for the AI interaction history.
 
 ## How it works
 
