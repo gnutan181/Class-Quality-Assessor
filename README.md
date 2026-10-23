@@ -1,14 +1,7 @@
----
-title: Class Quality Assessor
-emoji: 🎓
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Class Quality Assessor
+
+**Live app:** https://2ckkowxhcs9hknnkzvhnm9.streamlit.app/
+
 
 Upload a recording of an online children's class (or paste a link) and get a rating of
 **Poor / Average / Good / Excellent**, with timestamped, specific evidence for each
@@ -78,7 +71,14 @@ On Windows, after dependencies and FFmpeg are installed, start the app with
 enter your Gemini API key in the sidebar. The launcher uses `.venv` and also detects a
 local FFmpeg in `.runtime\win32`.
 
-Or with Docker:
+### Deployment
+
+The live app runs on Streamlit Community Cloud from this repository: `packages.txt`
+installs ffmpeg, `requirements.txt` the Python packages, and `GEMINI_API_KEY` (plus the
+optional `APP_PASSWORD`) are set in the app's **Secrets**. Long recordings are best given
+as a Google Drive link rather than uploaded, because the free tier has limited memory.
+
+Alternatively, with Docker (for example on Hugging Face Spaces):
 
 ```bash
 docker build -t class-assessor .
@@ -101,7 +101,8 @@ python calibrate.py --data "./class recordings"     # labels from folder names (
 python calibrate.py --data ./recordings --labels labels.csv   # or file,label CSV
 ```
 
-No powerful machine? Use `colab_calibrate.ipynb` on Google Colab instead.
+`colab_calibrate.ipynb` runs the same calibration on Google Colab, reading the
+recordings directly from Google Drive.
 
 Each video is paired with its Zoom `.vtt` in the same folder by batch code (e.g. `B435`).
 `--only B472` runs a single file; results are cached in `results/cache/`.

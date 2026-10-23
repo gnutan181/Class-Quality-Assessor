@@ -14,8 +14,7 @@ Main prompts and decisions, in order:
    because it accepts audio and images natively with one free key.
 3. **Data handling.** Claude flagged that the recordings are confidential and involve
    children, so the videos were never uploaded to the coding assistant. Instead it ran
-   its measurement code on my laptop's copy and only numeric results came back. The
-   Gemini calibration runs in Colab, which reads the recordings directly from Google Drive.
+   its measurement code on my laptop's copy and only numeric results came back.
 4. **Using the reviewer feedback.** After reading `feedbacks.pdf`, Claude rebuilt the
    rubric around 8x8's actual criteria: rapport, individual attention, energy, homework,
    8x8 background and camera, and AV quality. It also added Zoom transcript support
@@ -30,16 +29,19 @@ Main prompts and decisions, in order:
    prompt, and the Streamlit UI, and tested the media/signal code on synthetic videos
    generated with ffmpeg (tones with silent gaps, changing test patterns). It also
    tested the full pipeline end to end with a mocked Gemini client.
-8. **Hosting.** Claude added a Dockerfile for Hugging Face Spaces (16 GB RAM handles long
-   uploads) and a password gate so the public app does not expose recordings.
+8. **Hosting.** Claude added deployment files (`packages.txt` for ffmpeg, a Dockerfile)
+   and a password gate so the public app does not expose recordings. I deployed it on
+   Streamlit Community Cloud.
+9. **Debugging.** Running locally I hit `ffmpeg failed: Unrecognized option 'vsync'`;
+   Claude traced it to newer ffmpeg removing `-vsync` and added `-fps_mode` with a fallback.
 
 ## My own work
 
-- Downloaded the samples, ran `calibrate.py` locally, reviewed the per-class results and
-  checked the evidence the app quoted against the actual recordings.
-- [Add: anything you changed after reviewing results, e.g. weight or prompt tweaks.]
-
-## Gemini, inside the product
-
-Gemini (`gemini-2.5-flash`) is the runtime model that assesses each class. Its system
-prompt is in `assessor/llm.py`.
+- Defined the task and constraints for the assistant, chose Gemini as the runtime model
+  and agreed to process the recordings locally rather than upload them.
+- Pointed the assistant to the 8x8 reviewer feedback, which became the basis of the rubric.
+- Ran the app locally, reported the ffmpeg error, and verified the fix.
+- Created the GitHub repository, deployed the app on Streamlit Community Cloud, and tested
+  the hosted version.
+- Not done in the time window: a full Gemini calibration run over all ten labelled
+  samples (`calibrate.py`), so the label thresholds are still the defaults.
