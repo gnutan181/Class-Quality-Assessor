@@ -1,0 +1,11 @@
+.git
+__pycache__
+venv
+.venv
+recordings
+results
+.streamlit/secrets.toml
+*.mp4
+*.mkv
+*.mov
+*.webm
